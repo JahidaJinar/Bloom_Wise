@@ -13,13 +13,15 @@ require("dotenv").config();
 const app = express();
 
 // Connect MongoDB
+require("dotenv").config();
+
 mongoose
   .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.error("MongoDB connection error:", err));
+  .then(() => console.log("Database connected successfully"))
+  .catch((error) => console.log("Database cannot be connected", error));
 
 // Set EJS as the view engine
 app.set("view engine", "ejs");
