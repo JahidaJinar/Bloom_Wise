@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BloomWise - Transform Your Teaching with Bloom's Taxonomy</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/css/common.css" />
+    <link rel="stylesheet" href="/css/index.css" />
+  </head>
+  <body>
+    <!-- Overlay for mobile menu -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav" id="mobileNav">
+      <nav>
+        <a class="active" href="#home">Home<span></span></a>
+        <a href="#about">About<span></span></a>
+        <a href="#levels">Levels<span></span></a>
+        <a href="#interactive">Interactive<span></span></a>
+        <div class="nav-buttons">
+          <a class="nav-btn login-btn" href="/login">Log In</a>
+          <a class="nav-btn signup-btn" href="/signup">Sign Up</a>
+        </div>
+      </nav>
+    </div>
+
+    <!-- Hamburger Menu Button -->
+    <div class="hamburger" id="hamburgerMenu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <!-- Close button for mobile menu -->
+    <span class="close-menu" id="closeMenu" style="display: none">&times;</span>
+
+    <header>
+      <div class="navbar">
+        <nav>
+          <a class="active" href="#home">Home<span></span></a>
+          <a href="#about">About<span></span></a>
+          <a href="#levels">Levels<span></span></a>
+          <a href="#interactive">Interactive<span></span></a>
+          <div class="nav-buttons">
+            <a class="nav-btn login-btn" href="/login">Log In</a>
+            <a class="nav-btn signup-btn" href="/signup">Sign Up</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" id="home">
+        <div class="hero-content">
+          <h1>BloomWise</h1>
+          <p>
+            Transform your teaching with Bloom's Taxonomy. Our intelligent
+            platform helps educators design lessons, create assessments, and
+            develop students' higher-order thinking skills based on proven
+            cognitive frameworks.
+          </p>
+          <div class="hero-buttons">
+            <a href="#interactive" class="btn btn-primary">
+              <i class="fas fa-play-circle"></i> Try Our Demo
+            </a>
+            <a href="#about" class="btn btn-secondary">
+              <i class="fas fa-book"></i> Learn More
+            </a>
+          </div>
+        </div>
+        <div class="hero-image">
+          <img src="/assests/bloom.jpg" alt="Bloom's Taxonomy Pyramid" />
+        </div>
+      </section>
+
+      <section class="pyramid-section" id="about">
+        <h2 class="section-title">Bloom's Taxonomy Framework</h2>
+        <div class="pyramid-container">
+          <div class="pyramid-visual">
+            <div class="pyramid" id="pyramid">
+              <div class="pyramid-level level-1">Create</div>
+              <div class="pyramid-level level-2">Evaluate</div>
+              <div class="pyramid-level level-3">Analyze</div>
+              <div class="pyramid-level level-4">Apply</div>
+              <div class="pyramid-level level-5">Understand</div>
+              <div class="pyramid-level level-6">Remember</div>
+            </div>
+          </div>
+          <div class="pyramid-info">
+            <h3>Transform Your Teaching Approach</h3>
+            <p>
+              Bloom's Taxonomy categorizes cognitive skills into six levels,
+              moving from simple recall to complex creation. Each level builds
+              upon the previous, creating a pyramid of cognitive complexity.
+            </p>
+            <p>
+              This framework helps educators design curriculum, assessments, and
+              teaching strategies that develop higher-order thinking skills and
+              promote deeper learning.
+            </p>
+            <p>
+              BloomWise leverages this powerful framework to help teachers
+              create balanced lessons, identify question levels, and track
+              student cognitive development.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="levels-section" id="levels">
+        <h2 class="section-title">Cognitive Levels</h2>
+        <div class="levels-container">
+          <div class="level-card">
+            <div class="level-icon">
+              <i class="fas fa-brain"></i>
+            </div>
+            <h4>Remember</h4>
+            <p>
+              Recall facts and basic concepts. Retrieve relevant knowledge from
+              long-term memory.
+            </p>
+          </div>
+          <div class="level-card">
+            <div class="level-icon">
+              <i class="fas fa-lightbulb"></i>
+            </div>
+            <h4>Understand</h4>
+            <p>
+              Explain ideas or concepts. Demonstrate understanding through
+              interpretation.
+            </p>
+          </div>
+          <div class="level-card">
+            <div class="level-icon">
+              <i class="fas fa-cogs"></i>
+            </div>
+            <h4>Apply</h4>
+            <p>
+              Use information in new situations. Implement acquired knowledge to
+              solve problems.
+            </p>
+          </div>
+          <div class="level-card">
+            <div class="level-icon">
+              <i class="fas fa-chart-pie"></i>
+            </div>
+            <h4>Analyze</h4>
+            <p>
+              Draw connections among ideas. Break information into parts to
+              explore relationships.
+            </p>
+          </div>
+          <div class="level-card">
+            <div class="level-icon">
+              <i class="fas fa-balance-scale"></i>
+            </div>
+            <h4>Evaluate</h4>
+            <p>
+              Justify a stand or decision. Assess information based on criteria
+              and standards.
+            </p>
+          </div>
+          <div class="level-card">
+            <div class="level-icon">
+              <i class="fas fa-paint-brush"></i>
+            </div>
+            <h4>Create</h4>
+            <p>
+              Produce new or original work. Combine elements to form a coherent
+              whole.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="interactive-section" id="interactive">
+        <h2 class="section-title">Interactive Learning</h2>
+
+        <div class="interactive-container">
+          <div class="interactive-card">
+            <div class="interactive-header">
+              <div class="interactive-icon">
+                <i class="fas fa-gamepad"></i>
+              </div>
+              <h3 class="interactive-title">Bloom Level Quiz</h3>
+            </div>
+
+            <div class="quiz-container">
+              <div class="quiz-question" id="quizQuestion">
+                What was the main cause of World War I?
+              </div>
+
+              <div class="quiz-options">
+                <div class="quiz-option" data-level="remember">Remember</div>
+                <div class="quiz-option" data-level="understand">
+                  Understand
+                </div>
+                <div class="quiz-option" data-level="apply">Apply</div>
+                <div class="quiz-option" data-level="analyze">Analyze</div>
+                <div class="quiz-option" data-level="evaluate">Evaluate</div>
+                <div class="quiz-option" data-level="create">Create</div>
+              </div>
+
+              <div class="quiz-result" id="quizResult">
+                <!-- Result will be displayed here -->
+              </div>
+
+              <button class="next-btn" id="nextQuestion">
+                Next Question <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="interactive-card">
+            <div class="interactive-header">
+              <div class="interactive-icon">
+                <i class="fas fa-search"></i>
+              </div>
+              <h3 class="interactive-title">Question Analyzer</h3>
+            </div>
+
+            <div class="analyzer-container">
+              <textarea
+                class="analyzer-input"
+                id="questionInput"
+                placeholder="Enter your question here to analyze its Bloom's Taxonomy level..."
+              ></textarea>
+
+              <button class="analyze-btn" id="analyzeBtn">
+                Analyze Question <i class="fas fa-magic"></i>
+              </button>
+
+              <div class="analyzer-result" id="analyzerResult">
+                <!-- Analysis result will be displayed here -->
+              </div>
+            </div>
+          </div>
+
+          <div class="interactive-card">
+            <div class="interactive-header">
+              <div class="interactive-icon">
+                <i class="fas fa-video"></i>
+              </div>
+              <h3 class="interactive-title">
+                Introduction to Bloom's Taxonomy
+              </h3>
+            </div>
+
+            <div class="video-container">
+              <iframe
+                width="560"
+                height="315"
+                src="https://www.youtube.com/embed/ve-Evb5bGoc?si=B02QgMsk95P89yhb"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta-section" id="cta">
+        <div class="cta-content">
+          <h2>Ready to Transform Your Classroom?</h2>
+          <p>
+            Join thousands of educators who are using BloomWise to create
+            balanced lessons, develop critical thinking skills, and track
+            student cognitive growth.
+          </p>
+          <a href="/signup" class="btn btn-primary">
+            <i class="fas fa-user-plus"></i> Create Free Account
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer" id="contact">
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+      </div>
+      <p>© 2023 BloomWise - Transform Teaching with Bloom's Taxonomy</p>
+      <p>Designed for educators, by educators</p>
+    </footer>
+
+    <script src="/js/script.js"></script>
+  </body>
+</html>

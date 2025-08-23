@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reset Password - BloomWise</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/css/common.css" />
+    <link rel="stylesheet" href="/css/auth.css" />
+  </head>
+  <body>
+    <header>
+      <div class="navbar">
+        <nav>
+          <a href="/" class="logo">BloomWise</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="auth-container">
+      <div class="auth-card">
+        <h1>Create New Password</h1>
+        <p>Please enter your new password below</p>
+
+        <% if (typeof tokenError !== 'undefined' && tokenError) { %>
+        <div class="error-message">
+          Password reset link is invalid or has expired. Please request a new
+          one.
+        </div>
+        <% } %> <% if (typeof error !== 'undefined' && error) { %>
+        <div class="error-message"><%= error %></div>
+        <% } %> <% if (typeof tokenError === 'undefined' || !tokenError) { %>
+        <form action="/reset-password" method="POST">
+          <input type="hidden" name="token" value="<%= token %>" />
+          <input type="hidden" name="email" value="<%= email %>" />
+
+          <div class="form-group">
+            <label for="password">New Password</label>
+            <div class="password-container">
+              <input
+                type="password"
+                id="password"
+                name="password"
+                class="form-control"
+                placeholder="Enter new password"
+                required
+                minlength="6"
+              />
+              <span class="toggle-password">
+                <i class="fas fa-eye"></i>
+              </span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="confirmPassword">Confirm New Password</label>
+            <div class="password-container">
+              <input
+                type="password"
+                id="confirmPassword"
+                name="confirmPassword"
+                class="form-control"
+                placeholder="Confirm new password"
+                required
+                minlength="6"
+              />
+              <span class="toggle-password">
+                <i class="fas fa-eye"></i>
+              </span>
+            </div>
+          </div>
+
+          <button type="submit" class="submit-btn">Reset Password</button>
+
+          <div class="switch-form">
+            <p>Remember your password? <a href="/login">Sign In</a></p>
+          </div>
+        </form>
+        <% } else { %>
+        <div class="switch-form">
+          <p>
+            <a href="/forgot-password">Request a new password reset link</a>
+          </p>
+        </div>
+        <% } %>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+      </div>
+      <p>© 2023 BloomWise - Transform Teaching with Bloom's Taxonomy</p>
+    </footer>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Password toggle functionality
+        const toggleButtons = document.querySelectorAll(".toggle-password");
+        toggleButtons.forEach((button) => {
+          button.addEventListener("click", function () {
+            const input = this.previousElementSibling;
+            if (input.type === "password") {
+              input.type = "text";
+              this.innerHTML = '<i class="fas fa-eye-slash"></i>';
+            } else {
+              input.type = "password";
+              this.innerHTML = '<i class="fas fa-eye"></i>';
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

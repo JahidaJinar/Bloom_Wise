@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Email Verification - BloomWise</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/css/common.css" />
+    <link rel="stylesheet" href="/css/auth.css" />
+    <style>
+      .success-message {
+        background-color: #d4edda;
+        color: #155724;
+        padding: 12px;
+        border-radius: 4px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+      }
+
+      .error-message {
+        background-color: #f8d7da;
+        color: #721c24;
+        padding: 12px;
+        border-radius: 4px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+      }
+
+      .success-message i,
+      .error-message i {
+        margin-right: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="navbar">
+        <nav>
+          <a href="/" class="logo">BloomWise</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="auth-container">
+      <div class="auth-card">
+        <h1>Email Verification</h1>
+
+        <% if (success) { %>
+        <div class="success-message">
+          <i class="fas fa-check-circle"></i>
+          <%= message %>
+        </div>
+        <div class="switch-form">
+          <p><a href="/login">Proceed to Login</a></p>
+        </div>
+        <% } else { %>
+        <div class="error-message">
+          <i class="fas fa-exclamation-circle"></i>
+          <%= message %>
+        </div>
+        <div class="switch-form">
+          <p><a href="/signup">Back to Sign Up</a></p>
+        </div>
+        <% } %>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+      </div>
+      <p>© 2023 BloomWise - Transform Teaching with Bloom's Taxonomy</p>
+    </footer>
+  </body>
+</html>

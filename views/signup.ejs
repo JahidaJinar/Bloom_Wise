@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up - BloomWise</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/css/common.css" />
+    <link rel="stylesheet" href="/css/auth.css" />
+    <style>
+      .success-message {
+        background-color: #d4edda;
+        color: #155724;
+        padding: 12px;
+        border-radius: 4px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+      }
+
+      .success-message i {
+        margin-right: 10px;
+      }
+
+      #resendLink {
+        color: #007bff;
+        text-decoration: none;
+      }
+
+      #resendLink:hover {
+        text-decoration: underline;
+      }
+
+      #resendStatus {
+        margin-left: 10px;
+        font-style: italic;
+        color: #28a745;
+      }
+
+      .verification-pending {
+        background-color: #fff3cd;
+        color: #856404;
+        padding: 12px;
+        border-radius: 4px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+      }
+
+      .verification-pending i {
+        margin-right: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header with navigation to go back to home -->
+    <header>
+      <div class="navbar2">
+        <nav>
+          <a href="/" class="logo">BloomWise</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="auth-container">
+      <div class="auth-card">
+        <h1>Create Account</h1>
+        <p>Join thousands of educators transforming their teaching</p>
+
+        <% if (typeof error !== 'undefined' && error) { %>
+        <div class="error-message"><%= error %></div>
+        <% } %> <% if (typeof success !== 'undefined' && success) { %>
+        <div class="success-message" id="verificationMessage">
+          <i class="fas fa-envelope"></i>
+          <%= success %>
+          <p>
+            Didn't receive the email?
+            <a href="#" id="resendLink">Resend verification</a>
+            <span id="resendStatus"></span>
+          </p>
+        </div>
+        <% } %>
+
+        <!-- Show verification pending message if user has recently signed up -->
+        <div
+          class="verification-pending"
+          id="verificationPending"
+          style="display: none"
+        >
+          <i class="fas fa-clock"></i>
+          <span id="pendingMessage"
+            >Verification email sent. Please check your inbox.</span
+          >
+          <p>
+            Didn't receive the email?
+            <a href="#" id="pendingResendLink">Resend verification</a>
+            <span id="pendingResendStatus"></span>
+          </p>
+        </div>
+
+        <!-- Google Sign Up Button - Using same SVG as login page -->
+        <a href="/auth/google" class="google-btn">
+          <svg
+            class="google-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 48 48"
+          >
+            <path
+              fill="#FFC107"
+              d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"
+            />
+            <path
+              fill="#FF3D00"
+              d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"
+            />
+            <path
+              fill="#4CAF50"
+              d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"
+            />
+            <path
+              fill="#1976D2"
+              d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"
+            />
+          </svg>
+          Sign up with Google
+        </a>
+
+        <div class="divider">
+          <span>OR</span>
+        </div>
+
+        <form id="signupForm" action="/signup" method="POST">
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              class="form-control"
+              placeholder="Enter your full name"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="form-control"
+              placeholder="Enter your email"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <div class="password-container">
+              <input
+                type="password"
+                id="password"
+                name="password"
+                class="form-control"
+                placeholder="Create a password"
+                required
+              />
+              <span class="toggle-password" id="togglePassword">
+                <i class="fas fa-eye"></i>
+              </span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <div class="password-container">
+              <input
+                type="password"
+                id="confirmPassword"
+                name="confirmPassword"
+                class="form-control"
+                placeholder="Confirm your password"
+                required
+              />
+              <span class="toggle-password" id="toggleConfirmPassword">
+                <i class="fas fa-eye"></i>
+              </span>
+            </div>
+          </div>
+
+          <button type="submit" class="submit-btn">Create Account</button>
+
+          <div class="switch-form">
+            <p>Already have an account? <a href="/login">Log In</a></p>
+          </div>
+        </form>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+      </div>
+      <p>© 2023 BloomWise - Transform Teaching with Bloom's Taxonomy</p>
+    </footer>
+
+    <script>
+      // Resend verification email functionality
+      document.addEventListener("DOMContentLoaded", function () {
+        const resendLink = document.getElementById("resendLink");
+        const resendStatus = document.getElementById("resendStatus");
+        const pendingResendLink = document.getElementById("pendingResendLink");
+        const pendingResendStatus = document.getElementById(
+          "pendingResendStatus"
+        );
+        const emailInput = document.getElementById("email");
+        const verificationPending = document.getElementById(
+          "verificationPending"
+        );
+
+        // Check if we should show the verification pending message
+        const urlParams = new URLSearchParams(window.location.search);
+        if (
+          urlParams.has("success") &&
+          urlParams.get("success").includes("Verification email sent")
+        ) {
+          verificationPending.style.display = "block";
+
+          // Hide the success message if it's also showing
+          const successMessage = document.getElementById("verificationMessage");
+          if (successMessage) {
+            successMessage.style.display = "none";
+          }
+        }
+
+        function resendVerification(email) {
+          if (!email) {
+            return "Email not found. Please try signing up again.";
+          }
+
+          return fetch("/resend-verification", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email: email }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.success) {
+                return "Verification email sent!";
+              } else {
+                return "Error: " + data.message;
+              }
+            })
+            .catch((error) => {
+              return "Error sending verification email";
+            });
+        }
+
+        if (resendLink) {
+          resendLink.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            // Get the email from the form
+            const email = emailInput ? emailInput.value : "";
+
+            resendStatus.textContent = "Sending...";
+
+            resendVerification(email).then((result) => {
+              resendStatus.textContent = result;
+              setTimeout(() => {
+                resendStatus.textContent = "";
+              }, 3000);
+            });
+          });
+        }
+
+        if (pendingResendLink) {
+          pendingResendLink.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            // Get the email from the form or from the session
+            const email = emailInput ? emailInput.value : "";
+
+            pendingResendStatus.textContent = "Sending...";
+
+            resendVerification(email).then((result) => {
+              pendingResendStatus.textContent = result;
+              setTimeout(() => {
+                pendingResendStatus.textContent = "";
+              }, 3000);
+            });
+          });
+        }
+
+        // Check if user is already verified (in case they verified in another tab)
+        function checkVerificationStatus() {
+          const email = emailInput ? emailInput.value : "";
+          if (!email) return;
+
+          fetch(`/check-verification?email=${encodeURIComponent(email)}`)
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.verified) {
+                // User is verified, redirect to login with success message
+                window.location.href =
+                  "/login?success=Your email has been verified. You can now log in.";
+              }
+            })
+            .catch((error) => {
+              console.error("Error checking verification status:", error);
+            });
+        }
+
+        // Check verification status every 5 seconds if verification pending is shown
+        if (verificationPending.style.display === "block") {
+          setInterval(checkVerificationStatus, 5000);
+        }
+      });
+    </script>
+
+    <script src="/js/signup.js"></script>
+  </body>
+</html>

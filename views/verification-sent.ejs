@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Verification Sent - BloomWise</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/css/common.css" />
+    <link rel="stylesheet" href="/css/auth.css" />
+    <style>
+      .verification-info {
+        background-color: #f8f9fa;
+        border-left: 4px solid #007bff;
+        padding: 15px;
+        margin: 20px 0;
+        font-family: monospace;
+        word-break: break-all;
+      }
+      .dev-note {
+        background-color: #43c3c7;
+        border-left: 4px solid #a5eef3;
+        padding: 15px;
+        margin: 20px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="navbar">
+        <nav>
+          <a href="/" class="logo">BloomWise</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="auth-container">
+      <div class="auth-card">
+        <h1>Verification Email Sent</h1>
+
+        <div class="success-message">
+          <i class="fas fa-envelope"></i>
+          We've sent a verification email to <strong><%= email %></strong>.
+        </div>
+
+        <% if (verificationLink) { %>
+        <div class="dev-note">
+          <h3><i class="fas fa-flask"></i> Development Note</h3>
+          <p>
+            Since you're in development mode, here's your verification link:
+          </p>
+          <div class="verification-info">
+            <a href="<%= verificationLink %>"><%= verificationLink %></a>
+          </div>
+          <p>Click the link above to verify your email address.</p>
+        </div>
+        <% } %>
+
+        <p>
+          Please check your inbox and click the verification link to activate
+          your account.
+        </p>
+        <p>Didn't receive the email?</p>
+
+        <form action="/resend-verification" method="POST">
+          <input type="hidden" name="email" value="<%= email %>" />
+          <button type="submit" class="submit-btn">
+            Resend Verification Email
+          </button>
+        </form>
+
+        <div class="switch-form">
+          <p><a href="/login">Return to Login</a></p>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+      </div>
+      <p>© 2023 BloomWise - Transform Teaching with Bloom's Taxonomy</p>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>BloomWise — Upload & Scan</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/css/dashboard.css" />
+
+    <!-- Libraries (loaded first) -->
+    <!-- Chart.js -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"
+      defer
+    ></script>
+    <!-- Tesseract.js for OCR -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/tesseract.js@5.0.5/dist/tesseract.min.js"
+      defer
+    ></script>
+    <!-- pdf.js -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.5.136/pdf.min.mjs"
+      type="module"
+    ></script>
+    <!-- JSZip (DOCX/PPTX parsing) -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jzip.min.js"
+      defer
+    ></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/dashboard.css" />
+  </head>
+  <body>
+    <!-- Add hidden field for user ID -->
+    <input type="hidden" id="userId" value="<%= user.id %>" />
+
+    <!-- Header -->
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo">🧠</div>
+        <div class="brand-text">
+          <h1>BloomWise</h1>
+          <span class="subtitle">Question Scanner & Bloom Analyzer</span>
+        </div>
+      </div>
+      <div class="profile">
+        <span id="welcomeName">Welcome, <%= user.name %></span>
+        <a href="/logout" class="btn ghost" onclick="return confirmLogout()"
+          >Logout</a
+        >
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="tips">
+        <p>
+          <strong>Tip:</strong> Upload a
+          <em>PDF / DOCX / PPTX / TXT / Image</em> — or use your phone camera.
+          We'll extract questions, detect Bloom levels, and chart coverage.
+        </p>
+      </section>
+
+      <section class="grid">
+        <!-- Class Info -->
+        <div class="card">
+          <div class="card-header"><h2>📚 Class Info</h2></div>
+          <div class="card-body">
+            <label class="field">
+              <span>Grade</span>
+              <select id="grade">
+                <option value="" disabled selected>Select grade</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+                <option>10</option>
+                <option>11</option>
+                <option>12</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Subject</span>
+              <select id="subject">
+                <option value="" disabled selected>Select subject</option>
+                <option>Science</option>
+                <option>Math</option>
+                <option>English</option>
+                <option>History</option>
+                <option>Geography</option>
+                <option>ICT</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Lesson / Topic</span>
+              <input
+                id="topic"
+                type="text"
+                placeholder="e.g., Photosynthesis"
+              />
+            </label>
+            <button id="saveClassBtn" class="btn primary full">
+              Save Class
+            </button>
+          </div>
+        </div>
+
+        <!-- Manual Analyzer -->
+        <div class="card">
+          <div class="card-header"><h2>❓ Question Analyzer</h2></div>
+          <div class="card-body">
+            <label class="field">
+              <span>Paste or type your question</span>
+              <textarea
+                id="questionInput"
+                rows="5"
+                placeholder="Example: Compare photosynthesis and respiration in plants."
+              ></textarea>
+            </label>
+            <div class="row">
+              <button id="analyzeBtn" class="btn primary">Analyze</button>
+              <button id="addAnotherBtn" class="btn ghost">Add Another</button>
+            </div>
+            <div
+              id="analysisResult"
+              class="analysis hidden"
+              aria-live="polite"
+            ></div>
+
+            <details class="mini mt12">
+              <summary>Bloom Stem Bank</summary>
+              <div class="stems">
+                <div>
+                  <h4>Remember</h4>
+                  <p>define, list, name, label, recall</p>
+                </div>
+                <div>
+                  <h4>Understand</h4>
+                  <p>explain, summarize, describe, classify</p>
+                </div>
+                <div>
+                  <h4>Apply</h4>
+                  <p>use, illustrate, demonstrate, solve</p>
+                </div>
+                <div>
+                  <h4>Analyze</h4>
+                  <p>compare, contrast, differentiate</p>
+                </div>
+                <div>
+                  <h4>Evaluate</h4>
+                  <p>justify, critique, argue, assess</p>
+                </div>
+                <div>
+                  <h4>Create</h4>
+                  <p>design, compose, invent, develop</p>
+                </div>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <!-- Multi‑format Upload & Camera -->
+        <div class="card">
+          <div class="card-header"><h2>📎 Upload / 📸 Scan</h2></div>
+          <div class="card-body">
+            <label class="field">
+              <span>Upload file (PDF / DOCX / PPTX / TXT / Image)</span>
+              <input
+                type="file"
+                id="fileInput"
+                accept=".pdf,.docx,.pptx,.txt,image/*"
+              />
+            </label>
+            <div class="row">
+              <button id="extractBtn" class="btn">Extract Text</button>
+            </div>
+
+            <div class="camera mt12">
+              <video id="cameraStream" autoplay playsinline></video>
+              <div class="cam-controls">
+                <button id="cameraToggle" class="btn ghost">
+                  Start Camera
+                </button>
+                <button id="captureBtn" class="btn">Capture & OCR</button>
+              </div>
+              <canvas
+                id="captureCanvas"
+                class="hidden"
+                width="1280"
+                height="720"
+              ></canvas>
+            </div>
+
+            <div id="ocrStatus" class="status" aria-live="polite"></div>
+
+            <label class="field mt12">
+              <span>Extracted text (editable)</span>
+              <textarea
+                id="ocrOutput"
+                rows="8"
+                placeholder="Extracted questions appear here…"
+              ></textarea>
+            </label>
+
+            <button id="analyzeExtractedBtn" class="btn primary full">
+              Analyze Extracted Questions
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Saved Classes Section -->
+      <section class="saved-classes-section">
+        <div class="card">
+          <div class="card-header"><h2>📁 Your Saved Classes</h2></div>
+          <div class="card-body">
+            <div id="classesContainer" class="classes-grid">
+              <!-- Classes will be loaded here dynamically -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Class Distribution Charts Section -->
+      <section class="distribution-charts">
+        <div class="card">
+          <div class="card-header"><h2>📊 Class Distribution</h2></div>
+          <div class="card-body">
+            <div class="charts-grid">
+              <div>
+                <canvas id="classDistributionChart" height="250"></canvas>
+                <p class="chart-caption">Classes by Grade Level</p>
+              </div>
+              <div>
+                <canvas id="subjectDistributionChart" height="250"></canvas>
+                <p class="chart-caption">Classes by Subject</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Results -->
+      <section class="results">
+        <div class="card">
+          <div class="card-header flex-between">
+            <h2>📊 Bloom Coverage</h2>
+            <div class="row gap8">
+              <button id="clearResultsBtn" class="btn ghost">
+                Clear Results
+              </button>
+              <button id="downloadCSVBtn" class="btn">Download CSV</button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="results-grid">
+              <div><canvas id="coverageChart" height="250"></canvas></div>
+              <div class="table-wrap">
+                <table id="resultsTable">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Question</th>
+                      <th>Bloom Level</th>
+                      <th>Suggestion</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </div>
+            <p class="muted mt12">
+              All processing is done locally in your browser for privacy. For
+              even better accuracy, you can later plug in a server‑side AI.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer" id="contact">
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+      </div>
+      <p>© 2023 BloomWise - Transform Teaching with Bloom's Taxonomy</p>
+      <p>Designed for educators, by educators</p>
+    </footer>
+
+    <script src="/js/dashboard.js"></script>
+  </body>
+</html>
