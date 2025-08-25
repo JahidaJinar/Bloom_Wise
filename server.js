@@ -108,7 +108,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "http://bloom-wise.onrender.com/auth/google/callback",
+      callbackURL: "https://bloom-wise.onrender.com/auth/google/callback",
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
@@ -717,3 +717,4 @@ app.listen(port, () => {
     `Google OAuth configured with Client ID: ${process.env.GOOGLE_CLIENT_ID}`
   );
 });
+
