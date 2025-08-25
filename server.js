@@ -108,7 +108,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "http://localhost:5000/auth/google/callback",
+      callbackURL: "http://bloom-wise.onrender.com/auth/google/callback",
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
@@ -283,7 +283,8 @@ app.post("/forgot-password", async (req, res) => {
     await user.save();
 
     // Send email - Fixed the email content
-    const host = req.headers.host || process.env.DOMAIN || "localhost:5000";
+    const host =
+      req.headers.host || process.env.DOMAIN || "bloom-wise.onrender.com";
     const protocol =
       req.headers["x-forwarded-proto"] ||
       (req.secure ? "https" : "http") ||
