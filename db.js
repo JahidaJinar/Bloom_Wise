@@ -1,15 +1,17 @@
 const mongoose = require("mongoose");
+require("dotenv").config();
 
-// Connect to MongoDB
-const connect = mongoose.connect("mongodb://localhost:27017/bloomwise");
-
-// Check database connection
-connect
+// Connect to MongoDB using Atlas URI
+mongoose
+  .connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => {
     console.log("Database connected successfully");
   })
   .catch((error) => {
-    console.log("Database cannot be connected", error);
+    console.error("Database connection error:", error);
   });
 
 // User schema
