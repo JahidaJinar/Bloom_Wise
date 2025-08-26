@@ -26,14 +26,20 @@ document.addEventListener("DOMContentLoaded", function () {
   const signupForm = document.getElementById("signupForm");
   if (signupForm) {
     signupForm.addEventListener("submit", function (e) {
-      const name = document.getElementById("name").value;
-      const email = document.getElementById("email").value;
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
       const password = document.getElementById("password").value;
       const confirmPassword = document.getElementById("confirmPassword").value;
 
       if (!name || !email || !password || !confirmPassword) {
         e.preventDefault();
         alert("Please fill in all required fields");
+        return false;
+      }
+
+      if (password.length < 6) {
+        e.preventDefault();
+        alert("Password must be at least 6 characters");
         return false;
       }
 
