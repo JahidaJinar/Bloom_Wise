@@ -717,4 +717,3 @@ app.listen(port, () => {
     `Google OAuth configured with Client ID: ${process.env.GOOGLE_CLIENT_ID}`
   );
 });
-
